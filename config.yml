@@ -1,0 +1,54 @@
+#cd /mnt/c/entwicklung/ansible/openhab && ansible-playbook -i hosts config.yml --ask-pass --ask-become-pass --user openhabian
+- name: config per git checkout
+  hosts: openhabian
+  become: true
+  
+  vars:
+   home_dir: "/home/openhabian"
+   
+  
+  tasks:
+# Install apache2 with recommended packages
+   - apt:
+      name: git
+      state: present
+   - git:
+      repo: 'https://github.com/AndreasD83/openhab2'
+      dest: /home/openhabian/git
+      force: yes
+   - name: mv services
+     become: yes
+     shell:
+        mv /home/openhabian/git/services/*.cfg /etc/openhab2/services/
+   - name: mv things
+     become: yes
+     shell:
+        mv /home/openhabian/git/things/*.things /etc/openhab2/things/
+   - name: mv sitemaps
+     become: yes
+     shell:
+        mv /home/openhabian/git/sitemaps/*.sitemap /etc/openhab2/sitemaps/
+   - name: mv rules
+     become: yes
+     shell:
+        mv /home/openhabian/git/rules/*.rules /etc/openhab2/rules/
+   #- name: mv persistence
+   #  become: yes
+   #  shell:
+   #     mv /home/openhabian/git/persistence/*.persist /etc/openhab2/persistence/
+   - name: mv items
+     become: yes
+     shell:
+        mv /home/openhabian/git/items/*.items /etc/openhab2/items/
+   - git:
+      repo: 'https://github.com/AndreasD83/ultraschall'
+      dest: /home/openhabian/ultraschall
+      force: yes
+   - name: Create directory 
+     file:
+        path: /etc/ultraschall
+        state: directory
+   - name: mv python
+     become: yes
+     shell:
+         mv /home/openhabian/ultraschall/ultraschallsensor_entfernung.py /etc/ultraschall/

@@ -17,6 +17,10 @@
      file:
         path: /etc/ultraschall
         state: directory
+   - name: isntall module requests
+     become: yes
+     shell:
+         pip install requests
    - name: mv python ultraschallsensor_entfernung.py
      become: yes
      shell:

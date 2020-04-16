@@ -1,0 +1,22 @@
+#cd /mnt/c/entwicklung/ansible/openhab && ansible-playbook -i hosts config.yml --ask-pass --ask-become-pass --user openhabian
+- name: checkout python scripts
+  hosts: openhabian
+  become: true
+  
+  vars:
+   home_dir: "/home/openhabian"
+   
+  
+  tasks:
+   - git:
+      repo: 'https://github.com/AndreasD83/ultraschall'
+      dest: /home/openhabian/ultraschall
+      force: yes
+   - name: Create directory 
+     file:
+        path: /etc/ultraschall
+        state: directory
+   - name: mv python ultraschallsensor_entfernung.py
+     become: yes
+     shell:
+         mv /home/openhabian/ultraschall/ultraschallsensor_entfernung.py /etc/ultraschall/

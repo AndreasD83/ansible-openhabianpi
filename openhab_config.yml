@@ -40,15 +40,3 @@
      become: yes
      shell:
         mv /home/openhabian/git/items/*.items /etc/openhab2/items/
-   - git:
-      repo: 'https://github.com/AndreasD83/ultraschall'
-      dest: /home/openhabian/ultraschall
-      force: yes
-   - name: Create directory 
-     file:
-        path: /etc/ultraschall
-        state: directory
-   - name: mv python
-     become: yes
-     shell:
-         mv /home/openhabian/ultraschall/ultraschallsensor_entfernung.py /etc/ultraschall/

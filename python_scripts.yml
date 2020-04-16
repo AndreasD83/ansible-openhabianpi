@@ -17,10 +17,14 @@
      file:
         path: /etc/ultraschall
         state: directory
-   - name: isntall module requests
+   - name: install module requests
      become: yes
      shell:
          pip install requests
+   - name: install module pika
+     become: yes
+     shell:
+         pip install pika
    - name: mv python ultraschallsensor_entfernung.py
      become: yes
      shell:

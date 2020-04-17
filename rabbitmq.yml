@@ -7,9 +7,6 @@
     rabbitmq_version: 3.0.2-1
 
   tasks:
-  - name: ensure python-software-properties is installed
-    apt: pkg=python-software-properties state=present
-
   - name: add rabbitmq official apt repository
     apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present
 

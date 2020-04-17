@@ -36,6 +36,11 @@
 
   - name: remove default guest user
     rabbitmq_user: user=guest state=absent
+  - rabbitmq_queue:
+      name: ultrasonicQueue
+      login_user: ultra
+      login_password: ultra
+      login_host: openhabianpi
   - rabbitmq_exchange:
       name: inbound
       login_user: ultra
@@ -52,11 +57,7 @@
   - name: ensure vhost /test is present
     rabbitmq_vhost: name=/test state=present
       
-  - rabbitmq_queue:
-      name: ultrasonicQueue
-      login_user: ultra
-      login_password: ultra
-      login_host: openhabianpi
+  
     
   handlers:
   - name: restart rabbitmq

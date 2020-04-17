@@ -41,11 +41,19 @@
       login_user: ultra
       login_password: ultra
       login_host: openhabianpi
+  - rabbitmq_binding:
+     name: inbound
+     destination: ultrasonicQueue
+     type: queue
+     routing_key: difference
+     login_user: ultra
+     login_password: ultra
+     login_host: openhabianpi
   - name: ensure vhost /test is present
     rabbitmq_vhost: name=/test state=present
       
   - rabbitmq_queue:
-      name: myRemoteQueue
+      name: ultrasonicQueue
       login_user: ultra
       login_password: ultra
       login_host: openhabianpi

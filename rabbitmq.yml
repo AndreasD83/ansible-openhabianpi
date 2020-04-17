@@ -7,16 +7,18 @@
     rabbitmq_version: 3.0.2-1
 
   tasks:
-  - name: add rabbitmq official apt repository
-    apt_repository: 
-      repo='deb http://www.rabbitmq.com/debian/ testing main'
-      state=present
-
+  - name: add repo key rabbit
+    become: yes
+    shell: 
+      wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc | sudo apt-key add -
   - name: add trusted key
-    apt_key: url=https://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
-
-  - name: install package
-    apt: name={{ item }} update_cache=yes state=present
+    apt_key: url=https://www.rabbitmq.com/rabbitmq-release-signing-key.asc state=present
+  - name: add repo rabbit
+    become: yes
+    shell: 
+      echo "deb https://dl.bintray.com/rabbitmq/debian $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/rabbitmq.list
+  - name: install rabbitmq-server
+    apt: name={{ item }} state=present
     with_items:
       - rabbitmq-server
 

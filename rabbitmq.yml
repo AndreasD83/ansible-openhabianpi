@@ -41,6 +41,11 @@
       login_user: ultra
       login_password: ultra
       login_host: openhabianpi
+  - rabbitmq_queue:
+      name: wrongValueQueue
+      login_user: ultra
+      login_password: ultra
+      login_host: openhabianpi
   - rabbitmq_exchange:
       name: inbound
       login_user: ultra
@@ -51,6 +56,14 @@
      destination: ultrasonicQueue
      type: queue
      routing_key: difference
+     login_user: ultra
+     login_password: ultra
+     login_host: openhabianpi
+  - rabbitmq_binding:
+     name: inbound
+     destination: wrongValueQueue
+     type: queue
+     routing_key: wrong_value
      login_user: ultra
      login_password: ultra
      login_host: openhabianpi

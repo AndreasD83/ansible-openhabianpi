@@ -29,3 +29,12 @@
      become: yes
      shell:
          mv /home/openhabian/ultraschall/ultraschallsensor_entfernung.py /etc/ultraschall/
+   - name: mv ultra.service to /etc/systemd/system/
+     become: yes
+     shell:
+         mv /home/openhabian/ultraschall/ultra.service /etc/systemd/system/
+   - name: Make sure service ultra is running
+     systemd:
+       state: restarted
+       daemon_reload: yes
+       name: ultra
